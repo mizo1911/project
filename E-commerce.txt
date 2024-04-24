@@ -1,0 +1,357 @@
+col-lg-3 :the image take 3 colums out of 12,for each single row ,4 imgs will be displayed per row.
+col-md-6 : let each image take 6 colums>2imgs will be displayed per row.
+col-sm-12:only 1 img will be displayed per row.
+we only have 12 col per row
+---------------------------------------------------------------------
+  mysqli_connect() علشان اعمل كونكت مع الداتابيز بستخدم فانكشن 
+وبتأخذ 4 فانكشن "localhost" ,username ="root",password " ",DB_name
+
+
+
+CREATE TABLE IF NOT EXISTS 'products'(
+'product_id' int(11) NOT NULL AUTO_INCREMENT,
+'product_name' varchar(100)NOT NULL,
+'product_category' varchar(100)NOT NULL,
+'product_description' varchar(300)NOT NULL,
+'product_image'  varchar(300)NOT NULL,
+'product_image2'  varchar(300)NOT NULL,
+'product_image3'  varchar(300)NOT NULL,
+'product_image4'  varchar(300)NOT NULL,
+'product_price' decimal(6,2)NOT NULL, /*9999.99*/
+'product_special_offer' integer(2)NOT NULL,
+'product_color' varchar(100)NOT NULL,
+PRIMARY KEY('product_id')
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS 'orders'(
+'order_id'  int(11) NOT NULL AUTO_INCREMENT,
+'order_cost' decimal(6,2)NOT NULL, 
+'order_status' varchar(100)NOT NULL DEFAULT 'on_hold',
+'user_id' int(11) NOT NULL,
+'user_phone' int(11) NOT NULL,
+'user_city' varchar(300)NOT NULL,
+'user_address' varchar(300)NOT NULL,
+'order_date' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY('order_id')
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS 'order_items'(
+'item_id'  int(11) NOT NULL AUTO_INCREMENT,
+'order_id' int(11) NOT NULL, 
+'product_id' varchar(300)NOT NULL,
+'product_name' varchar(300)NOT NULL,
+'product_image' varchar(300)NOT NULL,
+'user_id' int(11) NOT NULL,
+'order_date' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY('item_id')
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS 'users'(
+'user_id'  int(11) NOT NULL AUTO_INCREMENT,
+'user_name' varchar(100)NOT NULL,
+'user_email' varchar(100)NOT NULL,
+'user_password' varchar(100)NOT NULL,
+PRIMARY KEY('user_id'),
+UNIQUE KEY 'UX_Constraint'('user_email')
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+correct database schema
+CREATE TABLE IF NOT EXISTS products (
+  product_id int(11) NOT NULL AUTO_INCREMENT,
+  product_name varchar(100) NOT NULL,
+  product_category varchar(100) NOT NULL,
+  product_description varchar(300) NOT NULL,
+  product_image varchar(300) NOT NULL,
+  product_image2 varchar(300) NOT NULL,
+  product_image3 varchar(300) NOT NULL,
+  product_image4 varchar(300) NOT NULL,
+  product_price decimal(6,2) NOT NULL,
+  product_special_offer int(2) NOT NULL,
+  product_color varchar(100) NOT NULL,
+  PRIMARY KEY (product_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS orders (
+  order_id int(11) NOT NULL AUTO_INCREMENT,
+  order_cost decimal(6,2) NOT NULL,
+  order_status varchar(100) NOT NULL DEFAULT 'on_hold',
+  user_id int(11) NOT NULL,
+  user_phone int(11) NOT NULL,
+  user_city varchar(300) NOT NULL,
+  user_address varchar(300) NOT NULL,
+  order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (order_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS order_items (
+  item_id int(11) NOT NULL AUTO_INCREMENT,
+  order_id int(11) NOT NULL,
+  product_id int(11) NOT NULL,
+  product_name varchar(300) NOT NULL,
+  product_image varchar(300) NOT NULL,
+  user_id int(11) NOT NULL,
+  order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (item_id),
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS users (
+  user_id int(11) NOT NULL AUTO_INCREMENT,
+  user_name varchar(100) NOT NULL,
+  user_email varchar(100) NOT NULL,
+  user_password varchar(100) NOT NULL,
+  PRIMARY KEY (user_id),
+  UNIQUE KEY UX_Constraint (user_email)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="products text-center col-lg-3 col-md-4 col-sm-12">
+      <img class="img-fluid " src="assets/images/coat.webp">
+      <div class="star">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+      </div>
+      <h5 class="p-name">Girl Hooded Faux Fur Long Jacket
+      </h5>
+      <h4 class="p-price">850 L.E</h4>
+      <div class="scene">
+        <div class="cube">
+          <span class="side top">NOW</span>
+          <span class="side front">BUY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="products text-center col-lg-3 col-md-4 col-sm-12">
+      <img class="img-fluid " src="assets/images/bag-featured.png">
+      <div class="star">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+      </div>
+      <h5 class="p-name">Backpack</h5>
+      <h4 class="p-price">280 L.E</h4>
+      <div class="scene">
+        <div class="cube">
+          <span class="side top">NOW</span>
+          <span class="side front">BUY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="products text-center col-lg-3 col-md-4 col-sm-12">
+      <img class="img-fluid " src="assets/images/shirt-featured.jpg">
+      <div class="star">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+      </div>
+      <h5 class="p-name">Oversize Fit Sweatshirt</h5>
+      <h4 class="p-price">499 L.E</h4>
+      <div class="scene">
+        <div class="cube">
+          <span class="side top">NOW</span>
+          <span class="side front">BUY</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!--PHP CODE--->
+     <?php include('Server/get_featured_products.php');?>
+     <?php    
+     while($row = $featured_products ->fetch_assoc()){ ?>
+
+<?php echo $row['product_image']; ?>
+<?php echo $row['product_name']; ?>
+<?php echo $row['product_id'] ;?>
+<?php echo $row['product_price']; ?>
+
+<?php } ?>
+
+
+
+
+
+
+Blacklight LED Light Roller Sneakers for Kids!<br> These amazing shoes feature built-in LED lights that illuminate in bright neon colors, making your child the star of any party or event.
+
+  But that's not all – these shoes also have hidden wheels in the sole, allowing your child to glide effortlessly and comfortably around the room. The rechargeable battery ensures that the fun never stops, and the durable construction guarantees that these shoes will last for hours of playtime.
+  
+  These Blacklight LED Light Roller Sneakers are not only fun and stylish, but they also promote an active lifestyle and encourage outdoor play. Your child will love showing off their new shoes to friends and family, and you'll love the peace of mind knowing that they are safe and comfortable.
+  
+  So don't wait any longer – order your child's pair of Blacklight LED Light Roller Sneakers today and watch their face light up with excitement!
+
+
+
+
+
+
+
+
+
+
+<?php
+
+session_start();
+
+//check whether the post parameter is empty or not ,whether the user came to this form or not
+if(isset($_POST['add_to_cart'])){
+  
+    //if user has already added a product to cart
+    if(isset($_SESSION['cart'])){
+   
+        $product_array_ids =array_column($_SESSION['cart'],"product_id"); //this will return all products ids
+        //check if product has already been added t cart or not
+         if(!in_array($_POST['product_id'],   $product_array_ids )){
+            
+            $product_array = array(
+
+                'product_id'=> $_POST['product_id'],
+                'product_name'=> $_POST['product_name'],
+                'product_price' => $_POST['product_price'],
+                'product_image' => $_POST['product_image'],
+                'product_quantity' => $_POST['product_quantity']
+            ); 
+            
+            $_SESSION['cart'][$product_id ]= $product_array;
+
+
+         } 
+       //product has already been added
+         else{
+            echo '<script> alert("Product was already added to the cart"); </script>';
+         }
+
+        
+    }
+    //if this is the first product
+   else{
+
+$product_id = $_POST['product_id'];
+$product_name = $_POST['product_name'];
+$product_price = $_POST['product_price'];
+$product_image = $_POST['product_image'];
+$product_quantity= $_POST['product_quantity'];
+
+$product_array = array(
+
+    'product_id'=> $product_id,
+    'product_name'=> $product_name,
+    'product_price' => $product_price,
+    'product_image' => $product_image,
+    'product_quantity' => $product_quantity
+); 
+
+$_SESSION['cart'][$product_id ]= $product_array;
+//[ the unique key is the($product_id )and the value is the array itself... 2=>[array that contains the info about that specific product]  3=>[]  4=>[]   ]
+
+    }
+    
+
+
+} 
+else{
+
+    //header('location:index.php');
+}
+
+
+?>
+
+
+
+
+
+
+<table class="mt-5 pt-5">
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>SubTotal</th>
+    </tr> 
+
+<?php foreach($_SESSION['cart'] as $key => $value) { ?>
+
+    <tr>
+        <td>
+            <div class="product-info">
+                <img src="assets/images/<?php echo $value['product_image']; ?>">
+                <div>
+                    <p> <?php echo $value['product_name']; ?></p>
+                    <small><span><?php echo $value['product_price']; ?></span>L.E</small>
+                    <br>
+                    <a class="remove-btn" href="#">Remove</a>
+                </div>
+            </div>
+        </td>
+        <td>
+            <input type="number" value="<?php echo $value['product_quantity']; ?>">
+            <a class="edit-btn" href="#">Edit</a>
+        </td>
+        <td>
+            <span class="product-price">855</span>
+            <span>L.E</span>
+        </td>
+    </tr>
+
+<?php } ?>
+
+
+</table>
+
+
+
+
+
+
+   <a href="checkout.php" class="btn" type="submit"  value="Checkout" name ="checkout">Checkout</a> 
+
+
+
+
+
+
+ <td>
+            <form>
+            <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>" />   
+            <input type="number" name="product_quantity" value="<?php echo $value['product_quantity']; ?>">
+            <input type="submit" class="edit-btn" value="edit" name="edit_quantity"/>
+            </form>
+            
+        </td>
+
+
+
+
+
+</div>
+
+
+session has a cart and this cart is an array, it has key value pair represent a product_id, and the value is an array with info about the product   
+
+ex: if we have 2 products in the cart, the key is the product_id & the value is an array with product information such as product price
+name, description
+
+
+this going to get each single product as an array, so this going to return an array with the product
+
+order_id is the same bec: he is the same person
